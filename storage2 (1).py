@@ -30,7 +30,7 @@ def search_product():
     answer = [p for p in products if question in p["name"]]
     if answer:
         for products in answer:
-            print(f"Název produktu: {products[name]} Cena produktu: {product[price]}$")
+            print(f"Název produktu: {products[name]} Cena produktu: {products[price]}$")
     else:
         print("Žádný produkt jsme nenašli.")
 
