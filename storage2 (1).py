@@ -1,136 +1,107 @@
 products = [
-    {
-        "name": "Audi",
-        "price": 50
-    },
-    {
-        "price": 30,
-        "name": "BMW",
-    }
+    {"name": "Audi", "price": 50},
+    {"name": "BMW", "price": 30}
 ]
 
 
 def print_products():
     for i, product in enumerate(products, start=1):
-        print(f"{i}, Název produktu2: {product['name']}, cena: {product['price']}$")
+        print(f"{i}. Název: {product['name']}, Cena: {product['price']}$")
 
 
 def add_product():
-    product_name = input("Název produktu:")
-    product_price = input("Cena produktu:")
-    product2 = {
-        'name': product_name,
-        'price': product_price
-    }
+    product_name = input("Název produktu: ")
+    product_price = float(input("Cena produktu: "))
+    products.append({"name": product_name, "price": product_price})
+    print("Produkt byl přidán.")
 
-    products.append(product2)
 
 def search_product():
-    question = input("Zadejte název produktu:"),
-    answer = [p for p in products if question in p["name"]]
-    if answer:
-        for products in answer:
-            print(f"Název produktu: {products[name]} Cena produktu: {products[price]}$")
+    question = input("Zadejte název produktu: ").lower()
+    found_products = [p for p in products if question in p["name"].lower()]
+
+    if found_products:
+        for product in found_products:
+            print(f"Název: {product['name']}, Cena: {product['price']}$")
     else:
         print("Žádný produkt jsme nenašli.")
+
 
 def total_price():
     total = sum(p["price"] for p in products)
     print(f"Celková cena: {total}$")
 
+
 def max_price():
-    max = max(p["price"] for p in products)
-    most_expensive = [p for p in products if p["price"] == max]
-    for products in most_expensive:
-        print(f"Nejdražší produkt: {products[name]}; Cena produktu: {products[price]}$")
+    max_price = max(p["price"] for p in products)
+    expensive_products = [p for p in products if p["price"] == max_price]
+
+    for product in expensive_products:
+        print(f"Nejdražší produkt: {product['name']}, Cena: {product['price']}$")
+
 
 def min_price():
-    min = min(p["price"] for p in products)
-    cheapest_product = [p for p in products if p["price"] == min]
-    for products in cheapest_product:
-        print(f"Nejlevnější produkt: {products[name]}; Cena produktu: {products[price]}$")
+    min_price = min(p["price"] for p in products)
+    cheapest_products = [p for p in products if p["price"] == min_price]
+
+    for product in cheapest_products:
+        print(f"Nejlevnější produkt: {product['name']}, Cena: {product['price']}$")
+
 
 def average_price():
-    average = sum(p["price"] for p in products)
-    print(f"Průměrná cena: {average:2f}$")
+    avg = sum(p["price"] for p in products) / len(products)
+    print(f"Průměrná cena: {avg:.2f}$")
+
 
 def edit_product():
     print_products()
-    index = int(input("Zadej číslo produktu, který bys chtěl upravovat: "))-1
+    index = int(input("Zadejte číslo produktu k úpravě: ")) - 1
+
     if 0 <= index < len(products):
-        products[index]["name"] = input("Upravený název produktu:")
-        products[index]["price"] = float(input("Upravená cena produktu:"))
-        print("Produkt byl upraven")
+        products[index]["name"] = input("Nový název: ")
+        products[index]["price"] = float(input("Nová cena: "))
+        print("Produkt byl upraven.")
     else:
-        print("Produkt nebyl upraven")
+        print("Neplatná volba.")
 
 
 def menu():
-    print("Vítej ve skladu")
-    print("###############\n")
-    print("1. Výpis polože")
-    print("2. Přidání položky\n")
-    print("3. Vyhledáváí produktu\n")
-    print("4. Celková cena produktů\n")
-    print("5. Nejdražší produkt\n")
-    print("6. Nejlevnější produkt\n")
-    print("7. Průměrná cena produktu\n")
-    print("8. Úprava produktu\n")
-    print("9. Konec\n")
+    while True:
+        print("\nVítejte ve skladu")
+        print("################")
+        print("1. Výpis položek")
+        print("2. Přidání položky")
+        print("3. Vyhledávání produktu")
+        print("4. Celková cena produktů")
+        print("5. Nejdražší produkt")
+        print("6. Nejlevnější produkt")
+        print("7. Průměrná cena produktu")
+        print("8. Úprava produktu")
+        print("9. Konec")
 
-    choice = int(input("Volba: "))
+        choice = input("Zadejte volbu: ")
 
-    if choice == 1:
-        print("Položky na skladě jsou:")
-        print_products()
-        print("")
-        menu()
-
-    elif choice == 2:
-        print("Přidání položky:")
-        add_product()
-        print("")
-        menu()
-
-    elif choice == 3:
-        print("Vyhledaný produkt:")
-        print_products()
-        print("")
-        menu()
-
-    elif choice == 4:
-        print("Celková cena produktu:")
-        print_products()
-        print("")
-        menu()
-
-    elif choice == 5:
-        print("Nejdražší produkt:")
-        print_products()
-        print("")
-        menu()
-
-    elif choice == 6:
-        print("Nejlevnější produkt:")
-        print_products()
-        print("")
-        menu()
-
-    elif choice == 7:
-        print("Průměrná cena produktu:")
-        print_products()
-        print("")
-        menu()
-
-    elif choice == 8:
-        print("Upravený produkt:")
-        print_products()
-        print("")
-        menu()
-
-    else:
-        print("Zadal jsi špatně!\n")
-        menu()
+        if choice == "1":
+            print_products()
+        elif choice == "2":
+            add_product()
+        elif choice == "3":
+            search_product()
+        elif choice == "4":
+            total_price()
+        elif choice == "5":
+            max_price()
+        elif choice == "6":
+            min_price()
+        elif choice == "7":
+            average_price()
+        elif choice == "8":
+            edit_product()
+        elif choice == "9":
+            print("Děkujeme za použití programu!")
+            break
+        else:
+            print("Neplatná volba, zkuste to znovu.")
 
 
 menu()
